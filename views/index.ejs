@@ -9,3 +9,12 @@
     <p>Welcome to <%= title %></p>
   </body>
 </html>
+
+<% if (currentUser) {%>
+  <h1>WELCOME BACK <%= currentUser.username %></h1>
+  <a href="/logout">LOG OUT</a>
+<% } %>
+
+
+<a href="sign-up">Sign up!</a>
+<a href="login">Login!</a>

@@ -5,35 +5,55 @@ const user = require("../models/user");
 const bcrypt = require("bcryptjs");
 
 exports.sign_up_page = function (req, res, next) {
-  res.render("sign-up", { title: "hella" });
+  res.render("sign-up", { title: "Sign up!", errors: false, username: undefined, firstName: undefined, lastName: undefined });
 };
 
 exports.sign_up_post = [
   // Validate and sanitize fields.
   body("firstName")
+  .exists({checkFalsy: true})
+  .withMessage("First name must be specified")
   .trim()
   .isLength({min: 3})
   .escape()
-  .withMessage("First name must be specified"),
+  .withMessage("First name must be over 3 characters")
+  .matches(/^[^\s]+$/)
+  .withMessage('First name must not contain spaces'),
 
   body("lastName")
+  .exists({checkFalsy: true})
+  .withMessage("Last name must be specified")
   .trim()
   .isLength({min: 3})
   .escape()
-  .withMessage("Last name must be specified"),
+  .withMessage("Last name must be over 3 characters")
+  .matches(/^[^\s]+$/)
+  .withMessage('Last name must not contain spaces'),
 
   body("username")
+  .exists({checkFalsy: true})
+  .withMessage("Password must be specified")
   .trim()
   .isLength({min: 3})
   .escape()
-  .withMessage("Username must be specified"),
+  .withMessage("Username name must be over 3 characters")
+  .matches(/^[^\s]+$/)
+  .withMessage('Username must not contain spaces'),
 
   body("password")
+  .exists({checkFalsy: true})
+  .withMessage("Password must be specified")
   .trim()
   .isLength({min: 3})
   .withMessage("Password length must be over 3 characters")
-  .escape()
-  .withMessage("Password must be specified"),
+  .escape(),
+
+  // Custom validator to check if confirm passwords.
+  body("passwordConfirmation")
+  .exists({checkFalsy: true})
+  .withMessage("Please confirm password.")
+  .custom((value, {req}) => value === req.body.password)
+  .withMessage("Password does not match"),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -43,6 +63,8 @@ exports.sign_up_post = [
         res.render("sign-up", {
             title: "Sign up",
             username: req.body.username,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             errors: errors.array(),
         })
         return;

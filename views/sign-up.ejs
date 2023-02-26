@@ -2,18 +2,20 @@
 
 <form action="" method="POST">
     <label for="firstName">First name</label>
-    <input name="firstName" placeholder="first name" type="text" />
+    <input name="firstName" placeholder="first name" type="text" value="<%= undefined === firstName ? '' : firstName %>" />
     <label for="lastName">Last name</label>
-    <input name="lastName" placeholder="last name" type="text" />
+    <input name="lastName" placeholder="last name" type="text" value="<%= undefined === lastName ? '' : lastName %>"/>
     <label for="username">Username</label>
-    <input name="username" placeholder="username" type="text" />
+    <input name="username" placeholder="username" type="text" value="<%= undefined === username ? '' : username %> " />
     <label for="password">Password</label>
     <input name="password" type="password" />
+    <label for="passwordConfirmation">Confirm password</label>
+    <input name="passwordConfirmation" type="password" />
     <button>Sign Up</button>
   </form>
 
  <% if (errors && errors.length > 0) {%>
     <% errors.forEach(function(err) { %>
-            <h1><%= err.msg %></h1>
+            <li class="text-warning"><%= err.msg %></li>
         <% }) %> 
     <%} %>
