@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
 
 <% if (currentUser) {%>
   <h1>WELCOME BACK <%= currentUser.username %></h1>
   <a href="/logout">LOG OUT</a>
-<% } %>
+  <a href="/create_message">Create new message</a>
+    <% if (currentUser.membership === false || currentUser.membership === undefined) { %>
+      <a href="/join_club">Join the club!</a>
+      <%  } %>
+<% } else { %>
+  <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <% } %>
 
 
 <a href="sign-up">Sign up!</a>
