@@ -1,0 +1,36 @@
+<% if (currentUser) { %>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <div class="div d-flex justify-content-center">
+            <form action="" method="POST">
+                <label for="title">Title</label>
+                <input
+                    name="title"
+                    placeholder="message title"
+                    cols="40"
+                    row="5"
+                ></input>
+        </div>
+        <div class="div">
+            <label for="message">Message</label>
+            <textarea
+            name="message"
+            placeholder="message"
+            cols="40"
+            row="5"
+            ></textarea>
+            <button type="submit">Submit</button>
+        </form> 
+        </div>
+
+        
+</div>
+<% } else { %>
+<h1>Sign up or login to create a message.</h1>
+<a href="/login">Login</a>
+<% } %>
+
+<% if (errors && errors.length > 0) {%>
+    <% errors.forEach(function(err) { %>
+            <li class="text-warning"><%= err.msg %></li>
+        <% }) %> 
+    <%} %>

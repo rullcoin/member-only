@@ -4,13 +4,29 @@ const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 
 exports.login_get = function (req, res, next) {
-  res.render("login", { title: "Login", errors: false });
+    if (req.user) {
+        return res.redirect("/")
+    }
+  res.render("login", { title: "Login", errors: undefined });
 };
 
 exports.login_post = function (req, res, next) {
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/",
+  passport.authenticate("local", function(err, user, info) {
+    if (err) {
+        return next(err)
+    }
+    if (!user) {
+        return res.render("login", {errors: "incorrect username or password"});
+    }
+
+    req.logIn(user, function(err) {
+        if (err) {
+            return next(err)
+        } 
+        return res.redirect("/")
+    })
+
+
   })(req, res, next);
 };
 
@@ -52,7 +68,7 @@ exports.join_club_post = [
           return next(err);
         }
         console.log("successfully changed membership");
-        res.redirect("/join_club")
+        res.redirect("/login/join_club")
         
         
     })

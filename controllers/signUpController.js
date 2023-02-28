@@ -100,6 +100,8 @@ exports.sign_up_post = [
         first_name: req.body.firstName,
         last_name: req.body.lastName,
         username: req.body.username,
+        membership: false,
+        isAdmin: true,
       });
 
       // Hash password
@@ -113,7 +115,11 @@ exports.sign_up_post = [
           if (err) {
             return next(err);
           }
-          res.redirect("/");
+          req.login(newUser, function(err) {
+            if (err) { return next(err); }
+            // If the user has been successfully logged in, redirect them to a page of your choice
+            return res.redirect("/");
+          });
         });
       });
     });

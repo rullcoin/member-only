@@ -1,9 +1,5 @@
 <h1>hi</h1>
 
-<% if (currentUser) {%>
-    <h1>WELCOME BACK <%= currentUser.username %></h1>
-    <a href="/logout">LOG OUT</a>
-  <% } else { %>
 <form action="" method="POST">
     <label for="username">Username</label>
     <input name="username" placeholder="username" type="text" />
@@ -11,4 +7,7 @@
     <input name="password" type="password" />
     <button>Log In</button>
   </form>
-  <%}%>
+
+  <% if (errors != undefined) {%>
+          <li class="text-warning"><%= errors %></li>
+    <%} %>

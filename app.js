@@ -14,6 +14,7 @@ const User = require("./models/user");
 const indexRouter = require("./routes/index");
 const signupRouter = require("./routes/signUp");
 const loginRouter = require("./routes/login");
+const messageRouter = require("./routes/createMessage");
 
 const app = express();
 
@@ -36,7 +37,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/public")));
 app.use(expressLayouts);
 
 // Add session and passport middleware
@@ -94,6 +95,7 @@ passport.deserializeUser(function (id, done) {
 app.use("/", indexRouter);
 app.use("/sign-up", signupRouter);
 app.use("/login", loginRouter);
+app.use("/create", messageRouter);
 
 // Logout function
 app.get("/logout", (req, res, next) => {

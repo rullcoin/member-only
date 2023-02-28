@@ -1,16 +1,26 @@
+<% messages.forEach(function(msg) { %>
+<div class="message-container"">
+  <div class="title">
+    <h3><%= msg.title %></h3>
+  </div>
+  <div class="message-content">
+    <h4><%= msg.body %></h4>
+  </div>
+  <div class="message-details">
+    <% if (!currentUser) {%>
+    <p class="text-warning"><i>login to see the date and the username</i></p>
+    <% } else if(currentUser.membership) { %>
+    <p><%= msg.date_formatted %></p>
+    <p>From: <%= msg.user.username %></p>
+    <% } else {%>
+    <p class="text-warning">Join the club to see who posted this!</p>
+    <% if(currentUser.isAdmin) { %>
+    <form action="" method="POST">
+      <input type="hidden" id="postid" name="postid" value="<%= msg._id %>">
+      <button type="submit">Delete</button>
+    </form>
+    <% } %> <% } %>
+  </div>
+</div>
 
-<% if (currentUser) {%>
-  <h1>WELCOME BACK <%= currentUser.username %></h1>
-  <a href="/logout">LOG OUT</a>
-  <a href="/create_message">Create new message</a>
-    <% if (currentUser.membership === false || currentUser.membership === undefined) { %>
-      <a href="/join_club">Join the club!</a>
-      <%  } %>
-<% } else { %>
-  <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <% } %>
-
-
-<a href="sign-up">Sign up!</a>
-<a href="login">Login!</a>
+<% }) %>

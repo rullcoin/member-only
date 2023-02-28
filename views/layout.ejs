@@ -8,6 +8,22 @@
     <title>Members only!</title>
 </head>
 <body>
-    <%- body %>
+    <header>
+        <% if (!currentUser) { %>
+            <a href="/sign-up">Sign up!</a>
+            <a href="/login">Login!</a>
+        <% } else { %>
+            <% if (currentUser.membership === false || currentUser.membership === undefined) { %>
+                <a href="/login/join_club">Join the club!</a>
+                <% } %>
+            <a href="/logout">LOG OUT</a>
+            <a href="/create">Create new message</a>    
+            <p>Welcome back <%=currentUser.username %></p>
+            <% } %>
+    </header>
+    
+    <section class="container">
+        <%- body %>
+    </section>
 </body>
 </html>

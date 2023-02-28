@@ -1,8 +1,7 @@
-<% if (currentUser.membership === true) {%>
-<h1>You are a member!</h1>
-<a href="/">Home</a>
-
-<% } else if (currentUser.membership === false || currentUser.membership === undefined) { %>
+<% if(!currentUser) { %>
+  <h1>Sorry, you need to login to access this page</h1>
+<a href="/login">Login!</a>
+<% }  else if (currentUser.membership === false || currentUser.membership === undefined) { %>
 <h1>Enter secret password to be a member!</h1>
 <form action="" method="POST">
   <label for="secretPassword">Secret password</label>
@@ -14,9 +13,12 @@
   <button type="submit">Submit</button>
 </form>
 <% } else { %>
-<h1>Sorry, you need to login to access this page</h1>
-<a href="/login">Login!</a>
-<% } %> <% if (errors && errors.length > 0) {%> <% errors.forEach(function(err)
-{ %>
-<li class="text-warning"><%= err.msg %></li>
-<% }) %> <%} %>
+<h1>You are a member!</h1>
+<a href="/">Home</a>
+<% } %>
+
+<% if (errors && errors.length > 0) {%> <% errors.forEach(function(err)
+  { %>
+  <li class="text-warning"><%= err.msg %></li>
+  <% }) %> 
+  <%}%> 
