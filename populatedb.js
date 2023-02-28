@@ -13,7 +13,7 @@ const Message = require("./models/message");
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false); // Prepare for Mongoose 7
 
-const mongoDB = "mongodb+srv://rull:lfsscoot@cluster0.psbtvow.mongodb.net/?retryWrites=true&w=majority"
+const mongoDB = ""
 
 main().catch((err) => console.log(err));
 async function main() {
