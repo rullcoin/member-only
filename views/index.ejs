@@ -1,5 +1,5 @@
 <% messages.forEach(function(msg) { %>
-<div class="message-container"">
+<div class="message-container">
   <div class="title">
     <h3><%= msg.title %></h3>
   </div>
@@ -24,3 +24,15 @@
 </div>
 
 <% }) %>
+
+<div class="pagination">
+  <% if (currentPage > 1) { %>
+  <a href="/?page=<%= currentPage - 1 %>">&laquo; Previous</a>
+  <% } %>
+  <% if (currentPage < totalPages) { %>
+  <a href="/?page=<%= currentPage + 1 %>">Next &raquo;</a>
+  <% } %>
+  <p>Page <%= currentPage %> of <%= totalPages %></p>
+</div>
+
+<%= console.log(currentPage) %>
